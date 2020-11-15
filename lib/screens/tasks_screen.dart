@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_todoey/widgets/tasks_list.dart';
+import 'package:flutter_todoey/screens/add_task_screen.dart';
 
 class TasksScreen extends StatelessWidget {
   @override
@@ -7,8 +8,18 @@ class TasksScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       floatingActionButton: FloatingActionButton(
-        onPressed: null,
         child: Icon(Icons.add),
+        onPressed: () => showModalBottomSheet(
+          context: context,
+          builder: (context) => SingleChildScrollView(
+            child: Container(
+              // Move widgets above when keyboard is active
+              padding: EdgeInsets.only(
+                  bottom: MediaQuery.of(context).viewInsets.bottom),
+              child: AddTaskScreen(),
+            ),
+          ),
+        ),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
